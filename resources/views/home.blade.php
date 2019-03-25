@@ -93,7 +93,7 @@
                                         <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="_method" value="delete">
-                                            <button type="submit" class="btn btn-danger">削除</button>
+                                            <button class="btn btn-danger">削除</button>
                                         </form>
                                     </td>
                                 </tr>

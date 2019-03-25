@@ -22,3 +22,4 @@ Route::get('/home/{id}', 'HomeController@show')->name('detail');
 Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
 
 Route::resource('users', 'UserController');
+Route::resource('shops', 'ShopController');

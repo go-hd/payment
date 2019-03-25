@@ -39,6 +39,9 @@
                         <li class="nav-item @if(Request::is('users')) active @endif">
                             <a class="nav-link" href="{{ route('users.index') }}">ユーザー</a>
                         </li>
+                        <li class="nav-item @if(Request::is('shops')) active @endif">
+                            <a class="nav-link" href="{{ route('shops.index') }}">ショップ</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

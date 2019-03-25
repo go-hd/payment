@@ -12,10 +12,25 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $shops = Shop::query();
+
+        $name = $request->get('name');
+
+        if (!is_null($name)) {
+            $shops->where('name', 'like', "%{$name}%");
+        }
+
+        $zipCode = $request->get('zip_code');
+
+        if (!is_null($zipCode)) {
+            $shops->where('zip_code', $zipCode);
+        }
+
+        $request->flash();
+
+        return view('shops.index')->with('shops', $shops->get());    }
 
     /**
      * Show the form for creating a new resource.
@@ -77,9 +92,12 @@ class ShopController extends Controller
      *
      * @param  \App\Shop  $shop
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Shop $shop)
     {
-        //
+        $shop->delete();
+
+        return redirect()->back();
     }
 }
