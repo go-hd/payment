@@ -74,4 +74,23 @@ class HomeController extends Controller
 
         return view('detail')->with('payment', $payment);
     }
+
+    /**
+     * 特定のIDの支払い情報を削除する
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy($id)
+    {
+        $payment = Payment::query()->find($id);
+        $order_no = $payment->order_no;
+
+        $payment->delete();
+
+        \Session::flash('status', $order_no . 'を削除しました。');
+
+        return redirect()->back();
+    }
 }

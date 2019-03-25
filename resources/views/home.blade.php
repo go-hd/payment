@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">フィルター</div>
                 <div class="card-body">
@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">支払い一覧（{{ $payments->count() }}件）</div>
 
@@ -71,6 +71,7 @@
                                     <th>名前</th>
                                     <th>金額</th>
                                     <th>発行者</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,6 +89,13 @@
                                     </td>
                                     <td>&yen;{{ $payment->price }}</td>
                                     <td>{{ $payment->user->name }}</td>
+                                    <td>
+                                        <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="_method" value="delete">
+                                            <button type="submit" class="btn btn-danger">削除</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
