@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Payment;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -22,11 +23,43 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $payments = Payment::all();
+        $payments = Payment::query();
 
-        return view('home')->with('payments', $payments);
+        // 名前でフィルタリング
+        $name = $request->get('customer');
+
+        if (!is_null($name)) {
+            $payments->where('customer', 'like', "%{$name}%");
+        }
+
+        // 伝票番号でフィルタリング
+        $order_no = $request->get('order_no');
+
+        if (!is_null($order_no)) {
+            $payments->where('order_no', $order_no);
+        }
+
+        // 値段でフィルタリング
+        $price = $request->get('price');
+        $price_operator = $request->get('price_operator') ?? '=';
+
+        if (!is_null($price)) {
+            $payments->where('price', $price_operator, $price);
+        }
+
+        // 自分が発行した伝票のみ表示する
+        $self_issued_payments = $request->get('self_issued_payments') == 1;
+
+        if ($self_issued_payments) {
+            $payments->where('user_id', \Auth::user()->id);
+        }
+
+        // 今回のリクエストデータをセッションに保存
+        $request->flash();
+
+        return view('home')->with('payments', $payments->get());
     }
 
     /**
