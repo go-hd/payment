@@ -20,3 +20,5 @@ Route::auth();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/{id}', 'HomeController@show')->name('detail');
 Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
+
+Route::resource('users', 'UserController');

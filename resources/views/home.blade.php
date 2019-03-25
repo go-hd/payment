@@ -9,8 +9,8 @@
                 <div class="card-body">
                     <form action="{{ route('home') }}" method="get">
                         <div class="form-group mb-3">
-                            <label for="nameInput">名前</label>
-                            <input type="text" class="form-control" id="nameInput" name="customer" value="{{ old('customer') }}">
+                            <label for="customerInput">名前</label>
+                            <input type="text" class="form-control" id="customerInput" name="customer" value="{{ old('customer') }}">
                         </div>
                         <div class="form-group mb-3">
                             <label for="orderNoInput">伝票番号</label>

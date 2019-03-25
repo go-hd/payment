@@ -33,7 +33,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item @if(Request::is('home')) active @endif">
+                            <a class="nav-link" href="{{ route('home') }}">ホーム</a>
+                        </li>
+                        <li class="nav-item @if(Request::is('users')) active @endif">
+                            <a class="nav-link" href="{{ route('users.index') }}">ユーザー</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
